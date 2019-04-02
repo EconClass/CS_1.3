@@ -50,7 +50,7 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     result = 0
     # compare allows a way to find D for any given character in an input
-    compare = list(string.digits + string.ascii_lowercase)
+    compare = string.digits + string.ascii_lowercase
     counter = len(digits)
 
     for d in digits:
@@ -68,13 +68,20 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
-    # ...
-    # TODO: Encode number in hexadecimal (base 16)
-    # ...
-    # TODO: Encode number in any base (2 up to 36)
-    # ...
-    pass
+
+    compare = string.digits + string.ascii_lowercase
+    dividend = number
+    result = ''
+    
+    while dividend > 0:
+        div_tup = divmod(dividend, base)
+        dividend = div_tup[0]
+        
+        # Use the remainder to index the desired corresponding character
+        result += compare[div_tup[1]]
+
+    # print('RESULT', result[::-1])
+    return result[::-1]
 
 
 def convert(digits, base1, base2):
@@ -115,4 +122,4 @@ def main():
 if __name__ == '__main__':
     # # hex_to_int('a')
     # main()
-    decode('10', 2)
+    encode(10, 2)
