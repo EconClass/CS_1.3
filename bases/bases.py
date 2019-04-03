@@ -38,6 +38,7 @@ def decode(digits, base):
     digits: str -- string representation of number (in given base)
     base: int -- base of given number
     return: int -- integer representation of number (in base 10)"""
+    assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
 
     # ================================================================
     # This implentation will use the following formula for conversion:
@@ -46,8 +47,6 @@ def decode(digits, base):
     # B = number base of input (example: B = 2 for binary input)
     # n = index of current value within the input string
     # ================================================================
-
-    assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     result = 0
     # compare allows a way to find D for any given character in an input
     compare = string.digits + string.ascii_lowercase
@@ -69,6 +68,7 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
 
+    # ======================CUSTOM======================
     compare = string.digits + string.ascii_lowercase
     dividend = number
     result = ''
@@ -76,11 +76,10 @@ def encode(number, base):
     while dividend > 0:
         div_tup = divmod(dividend, base)
         dividend = div_tup[0]
-        
+
         # Use the remainder to index the desired corresponding character
         result += compare[div_tup[1]]
 
-    # print('RESULT', result[::-1])
     return result[::-1]
 
 
@@ -93,15 +92,10 @@ def convert(digits, base1, base2):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
-    pass
+
+    # ====================== CUSTOM ======================
+    result = decode(digits, base1)
+    return encode(result, base2)
 
 def main():
     """Read command-line arguments and convert given digits between bases."""

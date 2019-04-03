@@ -104,7 +104,7 @@ class BasesEncodeTest(unittest.TestCase):
         assert encode(15, 2) == '1111'
 
     def test_encode_decimal(self):
-        # assert encode(0, 10) == '0'  # Should '' be valid?
+        # assert encode(0, 10) == '0'  # Should '' be valid? No.
         assert encode(5, 10) == '5'
         assert encode(10, 10) == '10'
         assert encode(25, 10) == '25'
