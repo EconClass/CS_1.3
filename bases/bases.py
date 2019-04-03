@@ -19,6 +19,7 @@ def decode(digits, base):
 
     result = 0
     # compare allows a way to find D for any given character in an input
+    # compare = '0123456789abcdefghijklmnopqrstuvwxyz'
     compare = string.digits + string.ascii_lowercase
     counter = len(digits)
 
@@ -40,6 +41,7 @@ def encode(number, base):
     assert number >= 0, 'number is negative: {}'.format(number)
 
     # ======================CUSTOM======================
+    # compare = '0123456789abcdefghijklmnopqrstuvwxyz'
     compare = string.digits + string.ascii_lowercase
     dividend = number
     result = ''
@@ -49,9 +51,9 @@ def encode(number, base):
         dividend = div_tup[0]
 
         # Use the remainder to index the desired corresponding character
-        result += compare[div_tup[1]]
+        result = compare[div_tup[1]] + result
 
-    return result[::-1]
+    return result
 
 
 def convert(digits, base1, base2):
