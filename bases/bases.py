@@ -1,37 +1,6 @@
 #!python
 
 import string
-# Hint: Use these string constants to encode/decode hexadecimal digits and more
-# string.digits is '0123456789'
-# string.hexdigits is '0123456789abcdefABCDEF'
-# string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
-# string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-# string.ascii_letters is ascii_lowercase + ascii_uppercase
-# string.printable is digits + ascii_letters + punctuation + whitespace
-
-# def bin_to_int(digits = '101101'):
-#     digits = digits[::-1]
-#     result = 0
-#     for d in digits:
-#         if d[1] == '1':
-#             # print('INDEX', d[0])
-#             result += 1 << d[0]
-#     print('RESULT', result)
-#     return result
-
-# def hex_to_int(digits):
-#     result = 0
-#     compare = list(string.digits + string.ascii_lowercase)
-#     digits = list(digits)
-#     counter = len(digits)
-
-#     for d in digits:
-#         counter -= 1
-#         multiplier = 16 ** digits.index(d)
-#         result += compare.index(d) * multiplier
-#     print(result)
-
-#     return result
 
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
@@ -47,6 +16,7 @@ def decode(digits, base):
     # B = number base of input (example: B = 2 for binary input)
     # n = index of current value within the input string
     # ================================================================
+
     result = 0
     # compare allows a way to find D for any given character in an input
     compare = string.digits + string.ascii_lowercase
@@ -63,6 +33,7 @@ def encode(number, base):
     number: int -- integer representation of number (in base 10)
     base: int -- base to convert to
     return: str -- string representation of number (in given base)"""
+    
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
@@ -111,7 +82,6 @@ def main():
     else:
         print('Usage: {} digits base1 base2'.format(sys.argv[0]))
         print('Converts digits from base1 to base2')
-
 
 if __name__ == '__main__':
     main()
