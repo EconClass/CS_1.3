@@ -114,6 +114,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # # hex_to_int('a')
-    # main()
-    encode(10, 2)
+    main()
