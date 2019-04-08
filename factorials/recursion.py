@@ -11,12 +11,16 @@ def factorial(n):
     # return factorial_iterative(n)
     return factorial_recursive(n)
 
-
 def factorial_iterative(n):
-    # TODO: implement the factorial function iteratively here
-    pass
-    # once implemented, change factorial (above) to call factorial_iterative
-    # to verify that your iterative implementation passes all tests
+    if n == 0 or n == 1:
+        return 1
+    
+    count  = 1
+    total = 0
+    while count < n:
+        total += count * (count + 1)
+        count += 1
+    return total
 
 
 def factorial_recursive(n):
