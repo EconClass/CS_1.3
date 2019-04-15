@@ -8,17 +8,17 @@ def factorial(n):
         raise ValueError('factorial is undefined for n = {}'.format(n))
     # implement factorial_iterative and factorial_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    # return factorial_iterative(n)
-    return factorial_recursive(n)
+    return factorial_iterative(n)
+    # return factorial_recursive(n)
 
 def factorial_iterative(n):
     if n == 0 or n == 1:
         return 1
     
     count  = 1
-    total = 0
+    total = 1
     while count < n:
-        total += count * (count + 1)
+        total *= count + 1
         count += 1
     return total
 
