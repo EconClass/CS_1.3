@@ -1,7 +1,9 @@
 #!python
 
-from linkedlist import LinkedList
+import sys
+sys.path.append('../')
 
+from linked_lists.linkedlist import LinkedList
 
 # Implement LinkedQueue below, then change the assignment at the bottom
 # to use this Queue implementation to verify it passes all tests

@@ -1,6 +1,9 @@
 #!python
 
-from linkedlist import LinkedList
+import sys
+sys.path.append('../')
+
+from linked_lists.linkedlist import LinkedList
 
 
 # Implement LinkedStack below, then change the assignment at the bottom
