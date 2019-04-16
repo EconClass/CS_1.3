@@ -30,30 +30,54 @@ def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
     # implement binary_search_iterative and binary_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    return binary_search_iterative(array, item)
-    # return binary_search_recursive(array, item)
+    # return binary_search_iterative(array, item)
+    return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(array, item):
     left = 0
     right = len(array) - 1
-    middle = (right - left) // 2
+    
 
-    while middle >= 0:
-        print("MIDDLE INDEX", middle)
-        print("MIDDLE ITEM", array[middle] )
-        if array[middle] == item:
+    while True:
+        middle = (right + left) // 2
+        mid_elem = array[middle]
+
+        if mid_elem == item: # Check if we have what we need
             return middle
-        elif array[middle] < item:
-            left = middle
-        elif array[middle] > item:
-            right = middle 
-
-    return None
+        # Adjust search to which half to look for item in   
+        elif mid_elem < item:
+            left = middle + 1
+        elif mid_elem > item:
+            right = middle - 1
+        
+        # We reached the end of the search
+        if left == right:
+            if array[left] == item: # Target is last or first in the list
+                return left # Found it!
+            return None # It ain't there.
 
 
 def binary_search_recursive(array, item, left=None, right=None):
-    # TODO: implement binary search recursively here
-    pass
-    # once implemented, change binary_search to call binary_search_recursive
-    # to verify that your recursive implementation passes all tests
+    if left == None and right == None:
+        left = 0
+        right = len(array) - 1
+    
+    middle = ( left + right ) // 2
+    mid_elem = array[middle]
+
+    if mid_elem == item: # Check if we have what we need
+            return middle
+    # Adjust search to which half to look for item in   
+    elif mid_elem < item:
+        left = middle + 1
+    elif mid_elem > item:
+        right = middle - 1
+    
+    # We reached the end of the search
+    if left == right:
+        if array[left] == item: # Target is last or first in the list
+            return left # Found it!
+        return None # It ain't there.
+    
+    return binary_search_recursive(array, item, left, right)
