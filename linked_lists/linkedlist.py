@@ -57,18 +57,19 @@ class LinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         Best and worst case running time: ??? under what conditions? [TODO]"""
-        # Node counter initialized to zero
-        node_count = 0
-        # Start at the head node
-        node = self.head
-        # Loop until the node is None, which is one node too far past the tail
-        while node is not None:
-            # Count one for this node
-            node_count += 1
-            # Skip to the next node
-            node = node.next
-        # Now node_count contains the number of nodes
-        return node_count
+        # # Node counter initialized to zero
+        # node_count = 0
+        # # Start at the head node
+        # node = self.head
+        # # Loop until the node is None, which is one node too far past the tail
+        # while node is not None:
+        #     # Count one for this node
+        #     node_count += 1
+        #     # Skip to the next node
+        #     node = node.next
+        # # Now node_count contains the number of nodes
+        # return node_count
+        return self.size
 
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
@@ -78,7 +79,17 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
+        
+        current = self.head
+        count = 0
+
+        while index < self.size:
+            if count == index:
+                return current.data
+            current = current.next
+            count += 1
+
+        return None
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -88,7 +99,9 @@ class LinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
+        
+        
+        self.size += 1
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
