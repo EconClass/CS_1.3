@@ -1,10 +1,6 @@
 #!python
 
-import sys
-sys.path.append('../')
-
 from linked_lists.linkedlist import LinkedList
-
 
 # Implement LinkedStack below, then change the assignment at the bottom
 # to use this Stack implementation to verify it passes all tests
@@ -38,7 +34,9 @@ class LinkedStack(object):
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
-        return self.list.head
+        if not self.list.is_empty():
+            return self.list.head.data
+        return None
 
     def pop(self):
         """Remove and return the item on the top of this stack,
