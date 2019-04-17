@@ -28,8 +28,7 @@ class HashTable(object):
     def load_factor(self):
         """Return the load factor, the ratio of number of entries to buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
-        # TODO: Calculate load factor
-        # return ...
+        return self.size / len(self.buckets)
 
     def keys(self):
         """Return a list of all keys in this hash table.
@@ -37,7 +36,7 @@ class HashTable(object):
         # Collect all keys in each of the buckets
         all_keys = []
         for bucket in self.buckets:
-            for key, value in bucket.items():
+            for key, _ in bucket.items():
                 all_keys.append(key)
         return all_keys
 
@@ -47,7 +46,7 @@ class HashTable(object):
         # Collect all values in each of the buckets
         all_values = []
         for bucket in self.buckets:
-            for key, value in bucket.items():
+            for _, value in bucket.items():
                 all_values.append(value)
         return all_values
 
@@ -64,10 +63,10 @@ class HashTable(object):
         """Return the number of key-value entries by traversing its buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
         # Count number of key-value entries in each of the buckets
-        item_count = 0
-        for bucket in self.buckets:
-            item_count += bucket.length()
-        return item_count
+        # item_count = 0
+        # for bucket in self.buckets:
+        #     item_count += bucket.length()
+        # return item_count
         # Equivalent to this list comprehension:
         return sum(bucket.length() for bucket in self.buckets)
 
@@ -115,10 +114,9 @@ class HashTable(object):
             bucket.delete(entry)
         # Insert the new key-value entry into the bucket in either case
         bucket.append((key, value))
-        # TODO: Check if the load factor exceeds a threshold such as 0.75
-        # ...
-        # TODO: If so, automatically resize to reduce the load factor
-        # ...
+
+        if self.load_factor() > .75:
+            self._resize()
 
     def delete(self, key):
         """Delete the given key and its associated value, or raise KeyError.
