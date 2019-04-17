@@ -96,13 +96,11 @@ class ArrayQueue(object):
         or raise ValueError if this queue is empty.
         Running time: O(???) – Why? [TODO]"""
         if not self.is_empty():
-            item = self.list[0]
-            self.list.pop(0)
-            return item
+            return self.list.pop(0)
         raise ValueError('Nothing to dequeue')
 
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
 # to use each of your Queue implementations to verify they each pass all tests
-# Queue = LinkedQueue
-Queue = ArrayQueue
+Queue = LinkedQueue
+# Queue = ArrayQueue
