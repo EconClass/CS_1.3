@@ -4,24 +4,10 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-
-    if len(pattern) == 0:
+    
+    if find_index(text, pattern) is not None:
         return True
-    
-    index = 0
-    
-    for char in text:
-        if char == pattern[index]:
-            if index == len(pattern) - 1:
-                return True
-            index += 1
-        else:
-            index = 0
-            if char == pattern[index]:
-                index += 1
-    
     return False
-
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
@@ -32,27 +18,17 @@ def find_index(text, pattern):
     if len(pattern) == 0:
         return 0
     
-    txt_dex = 0
-    pat_dex = 0
-
-    while txt_dex <= len(text) - len(pattern):
-
-        if text[txt_dex] == pattern[pat_dex]:
-
-            while pat_dex < len(pattern):
-
-                if text[txt_dex] != pattern[pat_dex]:
-                    txt_dex -= pat_dex
-                    pat_dex = 0
-                    break
-                
-                if pat_dex >= len(pattern) - 1:
-                    return txt_dex - pat_dex
-                
-                txt_dex += 1
-                pat_dex += 1
-
-        txt_dex += 1
+    index = 0
+    
+    for  i, char in enumerate(text):
+        if char == pattern[index]:
+            if index == len(pattern) - 1:
+                return i - index
+            index += 1
+        else:
+            index = 0
+            if char == pattern[index]:
+                index += 1
 
     return None
 
@@ -62,6 +38,7 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+    
     if len(pattern) == 0:
         return list( range(len(text)))
     
