@@ -38,7 +38,7 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    
+
     if len(pattern) == 0:
         return list( range(len(text)))
     
@@ -67,7 +67,7 @@ def find_all_indexes(text, pattern):
                 pat_dex += 1
 
         txt_dex += 1
-        
+    
     return found
 
 

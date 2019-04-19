@@ -1,9 +1,6 @@
 #!python
 
-import sys
-sys.path.append('../')
-
-from linked_lists.linkedlist import LinkedList
+from linkedlist import LinkedList
 
 class HashTable(object):
 
@@ -63,12 +60,7 @@ class HashTable(object):
         """Return the number of key-value entries by traversing its buckets.
         Best and worst case running time: ??? under what conditions? [TODO]"""
         # Count number of key-value entries in each of the buckets
-        # item_count = 0
-        # for bucket in self.buckets:
-        #     item_count += bucket.length()
-        # return item_count
-        # Equivalent to this list comprehension:
-        return sum(bucket.length() for bucket in self.buckets)
+        return sum( bucket.length() for bucket in self.buckets )
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
