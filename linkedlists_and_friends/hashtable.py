@@ -5,7 +5,8 @@ from linkedlist import LinkedList
 class HashTable(object):
 
     def __init__(self, init_size=8):
-        """Initialize this hash table with the given initial size."""
+        """Initialize this hash table with the given initial size.
+        This is also called in the _resize method."""
         self.buckets = [LinkedList() for i in range(init_size)]
         self.size = 0  # Number of key-value entries
 
@@ -155,10 +156,10 @@ class HashTable(object):
         """Resize this hash table's buckets and rehash all key-value entries.
         Should be called automatically when load factor exceeds a threshold
         such as 0.75 after an insertion (when set is called with a new key).
-        Best and worst case running time: O( n + r )
+        Best and worst case running time: O( n + b ) -> O(b) with resize
         Where:  n = number of items in the hashtable
-                r = number of new buckets in hashtable
-        Best and worst case space usage: O(n)
+                b = number of new buckets in hashtable
+        Best and worst case space usage: O( n + b ) -> O(b) with resize
         Resize requires the creation of a copy of all items in the old buckets
         to be rehashed into the new buckets also created by resize method"""
         # If unspecified, choose new size dynamically based on current size
@@ -172,11 +173,8 @@ class HashTable(object):
         # Get a list to temporarily hold all current key-value entries
         temp = self.items() # O(n)
 
-        # Create a new list of new_size total empty linked list buckets
-        self.buckets = [LinkedList() for i in range(new_size)] # O(r)
-
-        # Reset size for load factor calculation
-        self.size = 0
+        # Reinitialize hashtable with new size
+        self.__init__(new_size) # O(2r) -> O(r)
         
         for k, v in temp: # O(n)
             self.set(k, v) 
