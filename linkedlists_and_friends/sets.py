@@ -3,9 +3,16 @@
 from hashtable import HashTable
 
 class Set(object):
-    def __init__(self):
+    def __init__(self, *items):
         """Initialize set as an empty hash table."""
         self.table = HashTable()
+
+        if len(items) != 0:
+            for item in items:
+                self.table.set(item, None)
+
+    def __iter__(self):
+        return iter(self.table.keys())
 
     def size(self):
         """Returns the number of elements in the set."""
@@ -24,22 +31,21 @@ class Set(object):
 
     def add(self, elem):
         """Adds item to the set."""
-        self.table.set(elem, None) 
-
+        self.table.set(elem, None) # *O(1)
 
     def remove(self, elem):
         """Removes item to the set."""
-        self.table.delete(elem)
+        self.table.delete(elem) # *O(1)
 
     def union(self, other_set):
         """Returns a subset of elements that are in current set OR the given set.
         Best and Worst case running time: O(2n) -> O(n)"""
-        new_set = Set() 
+        new_set = Set()
 
-        for elem in self.table.keys(): # O(n)
+        for elem in self: # O(n)
            new_set.add(elem) # O(1)
         
-        for thing in other_set.keys(): # O(n)
+        for thing in other_set: # O(n)
             if new_set.contains(thing) != True: # O(1)
                 new_set.add(thing) # O(1)
 
@@ -48,10 +54,37 @@ class Set(object):
 
     def intersection(self, other_set):
         """Returns a subset of elements that are in current set AND the given set."""
+        new_set = Set()
+
+        for e in self:
+            if other_set.contains(e):
+                new_set.add(e)
+        
+        for elem in other_set.table:
+            if self.contains(elem):
+                new_set.add(elem)
+
 
     def difference(self, other_set):
         """Returns a subset of elements that are in current set AND
         NOT in the given set."""
+        new_set = Set()
+
+        for elem in self:
+            if not other_set.contains(elem):
+                new_set.add(elem)
+        
+        return new_set
+
 
     def is_subset(self, subset):
         """Returns True if the given subset is in current set, False otherwise."""
+        for elem in subset:
+            if self.contains(elem) != True:
+                return False
+        return True
+
+if __name__ == "__main__":
+    s = Set(1,2,3)
+    for i in s:
+        print(i)
