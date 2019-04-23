@@ -6,7 +6,8 @@ class HashTable(object):
 
     def __init__(self, init_size=8):
         """Initialize this hash table with the given initial size.
-        This is also called in the _resize method."""
+        NOTE: This is also called in the _resize method."""
+        
         self.buckets = [LinkedList() for i in range(init_size)]
         self.size = 0  # Number of key-value entries
 
