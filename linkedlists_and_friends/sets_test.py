@@ -23,13 +23,13 @@ class SetTest(unittest.TestCase):
 
     def test_contains(self):
         s = Set(1,2,3)
-        assert s.contains(1) == True
-        assert s.contains(2) == True
-        assert s.contains(3) == True
+        assert s.contains(1) is True
+        assert s.contains(2) is True
+        assert s.contains(3) is True
         # items not in set
-        assert s.contains(0) == False
-        assert s.contains(4) == False
-        assert s.contains('A') == False
+        assert s.contains(0) is False
+        assert s.contains(4) is False
+        assert s.contains('A') is False
 
     def test_add(self):
         s = Set()
@@ -37,16 +37,17 @@ class SetTest(unittest.TestCase):
 
         s.add('A')
         assert s.size() == 1
-        assert s.contains('A') == True
+        assert s.contains('A') is True
 
         s.add('B')
         assert s.size() == 2
-        assert s.contains('B') == True
+        assert s.contains('B') is True
 
         s.add(1)
         assert s.size() == 3
-        assert s.contains(1) == True
+        assert s.contains(1) is True
 
+        # Cannot add duplicate elements
         with self.assertRaises(KeyError):
             s.add('A')
         with self.assertRaises(KeyError):
@@ -55,38 +56,70 @@ class SetTest(unittest.TestCase):
     def test_remove(self):
         s = Set(1,2,3)
         assert s.size() == 3
-        assert s.contains(2) == True
+        assert s.contains(2) is True
 
         s.remove(2)
         assert s.size() == 2
-        assert s.contains(2) == False
+        assert s.contains(2) is False
+        # Can't remove nonexistent element
         with self.assertRaises(KeyError):
             s.remove(2)
 
         s.remove(3)
         assert s.size() == 1
-        assert s.contains(3) == False
+        assert s.contains(3) is False
+        # Can't remove nonexistent element
         with self.assertRaises(KeyError):
             s.remove(3)
 
         s.remove(1)
         assert s.size() == 0
-        assert s.contains(1) == False
-        
+        assert s.contains(1) is False
+        # Can't remove nonexistent element
         with self.assertRaises(KeyError):
             s.remove(1)
 
     def test_union(self):
-        s = Set()
-        pass
+        s = Set('A', 'B', 'C')
+        ss = Set('B', 'C', 'D')
+
+        sss = s.union(ss)
+        assert sss.contains('A') is True
+        assert sss.contains('B') is True
+        assert sss.contains('C') is True
+        assert sss.contains('D') is True
 
     def test_intersection(self):
-        s = Set()
-        pass
+        s = Set('A', 'B', 'C')
+        ss = Set('B', 'C', 'D')
+
+        sss = s.intersection(ss)
+
+        assert sss.contains('B') is True
+        assert sss.contains('C') is True
+
+        assert sss.contains('A') is False
+        assert sss.contains('D') is False
+        
 
     def test_difference(self):
-        s = Set()
-        pass
+        s = Set('A', 'B', 'C')
+        ss = Set('B', 'C', 'D')
+        sss1 = s.difference(ss)
+        sss2 = ss.difference(s)
+
+        assert sss1.contains('A') is True
+
+        assert sss1.contains('B') is False
+        assert sss1.contains('C') is False
+        assert sss1.contains('D') is False
+
+        assert sss2.contains('D') is True
+
+        assert sss2.contains('A') is False
+        assert sss2.contains('B') is False
+        assert sss2.contains('C') is False
+
 
     def test_is_subset(self):
         s = Set()

@@ -17,7 +17,8 @@ class Set(object):
 
     def __repr__(self):
         """Return a string representation of this set."""
-        return "Set{!r}".format(self.table.keys())
+        items = ['{!r}'.format(key) for key in self.table.keys()]
+        return '{' + ', '.join(items) + '}'
 
     def size(self):
         """Returns the number of elements in the set."""
@@ -72,9 +73,10 @@ class Set(object):
                 new_set.add(e)
         
         for elem in other_set:
-            if self.contains(elem):
+            if self.contains(elem) and not new_set.contains(elem):
                 new_set.add(elem)
 
+        return new_set
 
     def difference(self, other_set):
         """Returns a subset of elements that are in current set AND
