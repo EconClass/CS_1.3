@@ -121,6 +121,31 @@ class SetTest(unittest.TestCase):
         assert sss2.contains('C') is False
 
 
-    def test_is_subset(self):
-        s = Set()
-        pass
+    def test_is_subset_with_valid_subsets(self):
+        s = Set('A', 'B', 'C')
+        # sets are subsets of themselves
+        assert s.is_subset(s) is True
+        ss = Set('A')
+        assert s.is_subset(ss) is True
+        ss = Set('B')
+        assert s.is_subset(ss) is True
+        ss = Set('C')
+        assert s.is_subset(ss) is True
+        ss = Set('A', 'B')
+        assert s.is_subset(ss) is True
+        ss = Set('A', 'C')
+        assert s.is_subset(ss) is True
+        ss = Set('B', 'C')
+        assert s.is_subset(ss) is True
+
+    def test_is_subset_with_invalid_subsets(self):
+        s = Set('A', 'B', 'C')
+        ss = Set('D')
+        assert s.is_subset(ss) is False
+
+        assert s.is_subset(ss) is False
+        ss = Set('A', 'D')
+        assert s.is_subset(ss) is False
+        ss = Set('D', 'C')
+        assert s.is_subset(ss) is False
+        
