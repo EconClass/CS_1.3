@@ -28,7 +28,7 @@ class Set(object):
     def contains(self, elem):
         """Returns True if element is in the set and False otherwise.
         NOTE: The Set.contains() uses the HashTable.contains().
-        Time complexity for Set.contains() is the same as HashTable.contains().
+        Best and Worst case running time for Set.contains() is the same as HashTable.contains().
             *O(1) due to Hashtable's _resize()"""
 
         # Pass the element as a key to call the hash table method contains().
@@ -36,22 +36,26 @@ class Set(object):
         return self.table.contains(elem)
 
     def add(self, elem):
-        """Adds item to the set."""
-        if not self.contains(elem):
+        """Adds item to the set.
+        Best and Worst case running time: O(1)"""
+        if not self.contains(elem): # O(1)
             self.table.set(elem, None) # *O(1)
         else:
             raise KeyError("Item is already in the set.")
 
     def remove(self, elem):
-        """Removes item to the set."""
-        if self.contains(elem):
+        """Removes item to the set.
+        Best and Worst case running time: O(1)"""
+        if self.contains(elem): # O(1)
             self.table.delete(elem) # *O(1)
         else:
             raise KeyError("Item not in set. ")
 
     def union(self, other_set):
         """Returns a subset of elements that are in current set OR the given set.
-        Best and Worst case running time: O(2n) -> O(n)"""
+        Best and Worst case running time: O(n + p)
+        Where:  n = number of elements in current set
+                p = number of elements in other set"""
         new_set = Set()
 
         for elem in self: # O(n)
@@ -65,40 +69,47 @@ class Set(object):
 
 
     def intersection(self, other_set):
-        """Returns a subset of elements that are in current set AND the given set."""
+        """Returns a subset of elements that are in current set AND the given set.
+        Best and Worst case running time: O(n + p)
+        Where:  n = number of elements in current set
+                p = number of elements in other set"""
         new_set = Set()
 
-        for e in self:
-            if other_set.contains(e):
-                new_set.add(e)
+        for elem in self: # O(n)
+            if other_set.contains(elem): # O(1)
+                new_set.add(elem) # O(1)
         
-        for elem in other_set:
-            if self.contains(elem) and not new_set.contains(elem):
-                new_set.add(elem)
+        for thing in other_set: # O(n)
+            if self.contains(thing) and not new_set.contains(thing): # O(1)
+                new_set.add(thing) # O(1)
 
         return new_set
 
     def difference(self, other_set):
         """Returns a subset of elements that are in current set AND
-        NOT in the given set."""
+        NOT in the given set.
+        Best and Worst case running time: O(n)
+        Where:  n = number of elements in current set"""
         new_set = Set()
 
-        for elem in self: 
-            if not other_set.contains(elem):
-                new_set.add(elem)
+        for elem in self: # O(n)
+            if not other_set.contains(elem): # O(1)
+                new_set.add(elem) # O(1)
         
         return new_set
 
 
     def is_subset(self, subset):
-        """Returns True if the given subset is in current set, False otherwise."""
-        for elem in subset:
-            if not self.contains(elem):
+        """Returns True if the given subset is in current set, False otherwise.
+        Best and Worst case running time: O(s)
+        Where:  s = number of elements in subset"""
+        for elem in subset: # O(s)
+            if not self.contains(elem): # O(1)
                 return False
         return True
 
 if __name__ == "__main__":
-    s = Set(1,2,3)
+    s = Set([1,2,3])
     print(s)
     for i in s:
         print(i)
