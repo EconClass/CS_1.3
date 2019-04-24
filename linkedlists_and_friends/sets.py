@@ -79,7 +79,7 @@ class Set(object):
             if other_set.contains(elem): # O(1)
                 new_set.add(elem) # O(1)
         
-        for thing in other_set: # O(n)
+        for thing in other_set: # O(p)
             if self.contains(thing) and not new_set.contains(thing): # O(1)
                 new_set.add(thing) # O(1)
 
