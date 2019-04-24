@@ -14,6 +14,8 @@ class SetTest(unittest.TestCase):
     def test_init(self):
         s = Set()
         assert s.table.size == 0
+        s = Set([1,2,3])
+        assert s.table.size == 3
 
     def test_size(self):
         s = Set([0,1,2,3])
