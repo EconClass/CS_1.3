@@ -3,7 +3,7 @@
 from hashtable import HashTable
 
 class Set(object):
-    def __init__(self, *items):
+    def __init__(self, items=[]):
         """Initialize set as an empty hash table."""
         self.table = HashTable()
 

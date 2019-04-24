@@ -16,13 +16,13 @@ class SetTest(unittest.TestCase):
         assert s.table.size == 0
 
     def test_size(self):
-        s = Set(0,1,2,3)
+        s = Set([0,1,2,3])
         assert s.size() == 4
         s = Set()
         assert s.size() == 0
 
     def test_contains(self):
-        s = Set(1,2,3)
+        s = Set([1,2,3])
         assert s.contains(1) is True
         assert s.contains(2) is True
         assert s.contains(3) is True
@@ -54,7 +54,7 @@ class SetTest(unittest.TestCase):
             s.add(1)
 
     def test_remove(self):
-        s = Set(1,2,3)
+        s = Set([1,2,3])
         assert s.size() == 3
         assert s.contains(2) is True
 
@@ -80,8 +80,8 @@ class SetTest(unittest.TestCase):
             s.remove(1)
 
     def test_union(self):
-        s = Set('A', 'B', 'C')
-        ss = Set('B', 'C', 'D')
+        s = Set(['A', 'B', 'C'])
+        ss = Set(['B', 'C', 'D'])
 
         sss = s.union(ss)
         assert sss.contains('A') is True
@@ -90,8 +90,8 @@ class SetTest(unittest.TestCase):
         assert sss.contains('D') is True
 
     def test_intersection(self):
-        s = Set('A', 'B', 'C')
-        ss = Set('B', 'C', 'D')
+        s = Set(['A', 'B', 'C'])
+        ss = Set(['B', 'C', 'D'])
 
         sss = s.intersection(ss)
 
@@ -103,8 +103,8 @@ class SetTest(unittest.TestCase):
         
 
     def test_difference(self):
-        s = Set('A', 'B', 'C')
-        ss = Set('B', 'C', 'D')
+        s = Set(['A', 'B', 'C'])
+        ss = Set(['B', 'C', 'D'])
         sss1 = s.difference(ss)
         sss2 = ss.difference(s)
 
@@ -122,30 +122,30 @@ class SetTest(unittest.TestCase):
 
 
     def test_is_subset_with_valid_subsets(self):
-        s = Set('A', 'B', 'C')
+        s = Set(['A', 'B', 'C'])
         # sets are subsets of themselves
         assert s.is_subset(s) is True
-        ss = Set('A')
+        ss = Set(['A'])
         assert s.is_subset(ss) is True
-        ss = Set('B')
+        ss = Set(['B'])
         assert s.is_subset(ss) is True
-        ss = Set('C')
+        ss = Set(['C'])
         assert s.is_subset(ss) is True
-        ss = Set('A', 'B')
+        ss = Set(['A', 'B'])
         assert s.is_subset(ss) is True
-        ss = Set('A', 'C')
+        ss = Set(['A', 'C'])
         assert s.is_subset(ss) is True
-        ss = Set('B', 'C')
+        ss = Set(['B', 'C'])
         assert s.is_subset(ss) is True
 
     def test_is_subset_with_invalid_subsets(self):
-        s = Set('A', 'B', 'C')
-        ss = Set('D')
+        s = Set(['A', 'B', 'C'])
+        ss = Set(['D'])
         assert s.is_subset(ss) is False
 
         assert s.is_subset(ss) is False
-        ss = Set('A', 'D')
+        ss = Set(['A', 'D'])
         assert s.is_subset(ss) is False
-        ss = Set('D', 'C')
+        ss = Set(['D', 'C'])
         assert s.is_subset(ss) is False
         
