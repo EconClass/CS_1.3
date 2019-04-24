@@ -22,7 +22,7 @@ class Set(object):
     def size(self):
         """Returns the number of elements in the set."""
         # Constant time to look up object properties.
-        return self.table.size # O(1)
+        return self.table.length() # O(1)
 
     def contains(self, elem):
         """Returns True if element is in the set and False otherwise.
@@ -43,7 +43,7 @@ class Set(object):
 
     def remove(self, elem):
         """Removes item to the set."""
-        if self.contains(elem) == True:
+        if self.contains(elem):
             self.table.delete(elem) # *O(1)
         else:
             raise KeyError("Item not in set. ")

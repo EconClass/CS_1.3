@@ -34,19 +34,47 @@ class SetTest(unittest.TestCase):
     def test_add(self):
         s = Set()
         assert s.size() == 0
+
         s.add('A')
         assert s.size() == 1
         assert s.contains('A') == True
+
         s.add('B')
         assert s.size() == 2
         assert s.contains('B') == True
+
         s.add(1)
         assert s.size() == 3
         assert s.contains(1) == True
 
+        with self.assertRaises(KeyError):
+            s.add('A')
+        with self.assertRaises(KeyError):
+            s.add(1)
+
     def test_remove(self):
-        s = Set()
-        pass
+        s = Set(1,2,3)
+        assert s.size() == 3
+        assert s.contains(2) == True
+
+        s.remove(2)
+        assert s.size() == 2
+        assert s.contains(2) == False
+        with self.assertRaises(KeyError):
+            s.remove(2)
+
+        s.remove(3)
+        assert s.size() == 1
+        assert s.contains(3) == False
+        with self.assertRaises(KeyError):
+            s.remove(3)
+
+        s.remove(1)
+        assert s.size() == 0
+        assert s.contains(1) == False
+        
+        with self.assertRaises(KeyError):
+            s.remove(1)
 
     def test_union(self):
         s = Set()
