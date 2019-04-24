@@ -38,13 +38,15 @@ class Set(object):
         """Adds item to the set."""
         if not self.contains(elem):
             self.table.set(elem, None) # *O(1)
-        raise KeyError("Item is already in the set.")
+        else:
+            raise KeyError("Item is already in the set.")
 
     def remove(self, elem):
         """Removes item to the set."""
         if self.contains(elem) == True:
             self.table.delete(elem) # *O(1)
-        raise KeyError("Item not in set. ")
+        else:
+            raise KeyError("Item not in set. ")
 
     def union(self, other_set):
         """Returns a subset of elements that are in current set OR the given set.

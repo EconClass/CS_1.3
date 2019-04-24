@@ -26,10 +26,23 @@ class SetTest(unittest.TestCase):
         assert s.contains(1) == True
         assert s.contains(2) == True
         assert s.contains(3) == True
+        # items not in set
+        assert s.contains(0) == False
+        assert s.contains(4) == False
+        assert s.contains('A') == False
 
     def test_add(self):
         s = Set()
-        pass
+        assert s.size() == 0
+        s.add('A')
+        assert s.size() == 1
+        assert s.contains('A') == True
+        s.add('B')
+        assert s.size() == 2
+        assert s.contains('B') == True
+        s.add(1)
+        assert s.size() == 3
+        assert s.contains(1) == True
 
     def test_remove(self):
         s = Set()
