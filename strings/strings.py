@@ -2,6 +2,7 @@
 
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
+    
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     res = find_all_indexes(text, pattern)
@@ -11,8 +12,8 @@ def contains(text, pattern):
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found.
-    c"""
+    or None if not found."""
+
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
