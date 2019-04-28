@@ -2,9 +2,10 @@
 
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
-    
+
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+    
     res = find_all_indexes(text, pattern)
     if res != []:
         return True
@@ -17,6 +18,7 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
+    # NOTE: The following commented code is a reference for alternative solution.
     # if len(pattern) == 0: # O(1)
     #     return 0
     
