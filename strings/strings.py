@@ -4,66 +4,73 @@ def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    
-    if find_index(text, pattern) is not None:
+    res = find_all_indexes(text, pattern)
+    if res != []:
         return True
     return False
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found."""
+    or None if not found.
+    c"""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    if len(pattern) == 0:
-        return 0
+    # if len(pattern) == 0: # O(1)
+    #     return 0
     
-    index = 0
+    # index = 0
     
-    for  i, char in enumerate(text):
-        if char == pattern[index]:
-            if index == len(pattern) - 1:
-                return i - index
-            index += 1
-        else:
-            index = 0
-            if char == pattern[index]:
-                index += 1
+    # for i, char in enumerate(text): # O(n)
+    #     if char == pattern[index]: # O(1)
+    #         if index == len(pattern) - 1: # O(1)
+    #             return i - index # O(1)
+    #         index += 1 # O(1)
+    #     else:
+    #         index = 0 # O(1)
+    #         if char == pattern[index]: # O(1)
+    #             index += 1 # O(1)
 
+    # return None # O(1)
+
+    res = find_all_indexes(text, pattern)
+    if res != []:
+        return res[0]
     return None
 
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
-    or an empty list if not found."""
+    or an empty list if not found.
+    Time comlexity: O(n*m)"""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
     if len(pattern) == 0:
-        return list( range(len(text)))
+        return list(range(len(text)))
     
     txt_dex = 0
     pat_dex = 0
     found = []
 
-    while txt_dex <= len(text) - len(pattern):
+    while txt_dex <= len(text) - len(pattern): # O(n)
 
-        if text[txt_dex] == pattern[pat_dex]:
+        if text[txt_dex] == pattern[pat_dex]:  # O(1)
 
-            while pat_dex < len(pattern):
+            while pat_dex < len(pattern): # O(m)
 
-                if text[txt_dex] != pattern[pat_dex]:
+                if text[txt_dex] != pattern[pat_dex]: # O(1)
                     txt_dex -= pat_dex
                     pat_dex = 0
                     break
                 
-                if pat_dex >= len(pattern) - 1:
+                if pat_dex >= len(pattern) - 1: # O(1)
                     txt_dex -= pat_dex
                     found.append(txt_dex)
                     pat_dex = 0
                     break
                 
-                txt_dex += 1
+                txt_dex += 1 
                 pat_dex += 1
 
         txt_dex += 1
@@ -74,10 +81,8 @@ def find_all_indexes(text, pattern):
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
     print('contains({!r}, {!r}) => {}'.format(text, pattern, found))
-    # TODO: Uncomment these lines after you implement find_index
     index = find_index(text, pattern)
     print('find_index({!r}, {!r}) => {}'.format(text, pattern, index))
-    # TODO: Uncomment these lines after you implement find_all_indexes
     indexes = find_all_indexes(text, pattern)
     print('find_all_indexes({!r}, {!r}) => {}'.format(text, pattern, indexes))
 

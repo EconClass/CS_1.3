@@ -11,7 +11,8 @@ def decode(digits, base):
 
     # ================================================================
     # This implentation will use the following formula for conversion:
-    #     D * B^(n)
+    #     target = D * B^(n)
+    # target = Base 10 equivalent of given digits of any base
     # D = numeric value of character (example: 'd' = 13)
     # B = number base of input (example: B = 2 for binary input)
     # n = index of current value within the input string

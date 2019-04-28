@@ -75,7 +75,7 @@ class Set(object):
                 m = number of elements in other set"""
         new_set = Set()
 
-        if self.size() >= other_set.size():
+        if self.size() > other_set.size():
             smaller = other_set
             bigger = self
         else:

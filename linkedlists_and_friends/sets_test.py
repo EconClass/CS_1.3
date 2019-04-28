@@ -144,7 +144,7 @@ class SetTest(unittest.TestCase):
         s = Set(['A', 'B', 'C'])
         ss = Set(['D'])
         assert s.is_subset(ss) is False
-
+        assert ss.is_subset(s) is False
         assert s.is_subset(ss) is False
         ss = Set(['A', 'D'])
         assert s.is_subset(ss) is False
