@@ -24,17 +24,19 @@ class BinaryTreeNode(object):
     def height(self):
         """Return the height of this node (the number of edges on the longest
         downward path from this node to a descendant leaf node).
-        TODO: Best and worst case running time: ??? under what conditions?"""
+        Best case running time: O(1) for small or no subsequent generations
+        Worst case running time: O(n) where n = number of subsequent generations"""
+        
         left_height = 0
         right_height = 0
 
-        if self.left is not None:
-            left_height = self.left.height() + 1
+        if self.left is not None: # O(1)
+            left_height = self.left.height() + 1 # O(n)
         
-        if self.right is not None:
-            right_height = self.right.height() + 1
+        if self.right is not None: # O(1)
+            right_height = self.right.height() + 1 # O(n)
 
-        return max(left_height, right_height)
+        return max(left_height, right_height) # O(1)
 
 
 class BinarySearchTree(object):
