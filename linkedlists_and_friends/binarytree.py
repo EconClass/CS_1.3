@@ -1,7 +1,7 @@
 #!python
 
 from queue import LinkedQueue
-from stack import LinkedStack
+from stack import ArrayStack
 
 class BinaryTreeNode(object):
 
@@ -231,22 +231,33 @@ class BinarySearchTree(object):
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
 
+    def _delete_no_children(self):
+        pass
+
+    def _delete_one_child(self):
+        pass
+
+    def _delete_two_children(self):
+        pass
+
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
         items = []
         if not self.is_empty():
             # Traverse tree in-order from root, appending each node's item
-            self._traverse_in_order_recursive(self.root, items.append)
+            # self._traverse_in_order_recursive(self.root, items.append)
+            self._traverse_in_order_iterative(self.root, items.append)
         # Return in-order list of all items in tree
         return items
 
     def _traverse_in_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time: O(n) all nodes will be visited at least once.
+        Memory usage: The call stack for this recursive function in the worst case is
+        O(log(n)) for balanced trees O(n) if unbalanced"""
         
-        if node is not None:
+        if node:
             # Traverse left subtree, if it exists
             if node.left:
                 self._traverse_in_order_recursive(node.left, visit)
@@ -263,7 +274,31 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Traverse in-order without using recursion (stretch challenge)
-        pass
+        assert node is not None, 'node cannot be empty'
+
+        stack = ArrayStack()
+        stack.push(node)
+
+        # Check if we completed the call stack
+        while not stack.is_empty():
+            # Add left subtree to the call stack, if it exists
+            if stack.peek().left:
+                stack.push(stack.peek().left)
+            else:
+                # Attempt to visit top of call stack
+                node = stack.pop()
+                # Visit this node's data with given function
+                visit(node.data)
+                # Additional check to avoid infinite loop
+                if not stack.is_empty():
+                    # Attempt to visit the new top of call stack
+                    node = stack.pop()
+                    # Visit this node's data with given function
+                    visit(node.data)
+                # Add right subtree to the call stack, if it exists
+                if node.right:
+                    stack.push(node.right)
+
 
     def items_pre_order(self):
         """Return a pre-order list of all items in this binary search tree."""
@@ -277,12 +312,12 @@ class BinarySearchTree(object):
     def _traverse_pre_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive pre-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
-        if node is not None:
+        Running time: O(n) all nodes will be visited at least once.
+        Memory usage: The call stack for this recursive function in the worst case is
+        O(log(n)) for balanced trees O(n) if unbalanced"""
+        if node:
             # Visit this node's data with given function
             visit(node.data)
-            print(node.left)
              # Traverse left subtree, if it exists
             if node.left:
                 self._traverse_pre_order_recursive(node.left, visit)
@@ -310,9 +345,10 @@ class BinarySearchTree(object):
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
-        if node is not None:
+        Running time: O(n) all nodes will be visited at least once.
+        Memory usage: The call stack for this recursive function in the worst case is
+        O(log(n)) for balanced trees O(n) if unbalanced"""
+        if node:
              # Traverse left subtree, if it exists
             if node.left:
                 self._traverse_post_order_recursive(node.left, visit)
@@ -342,8 +378,8 @@ class BinarySearchTree(object):
     def _traverse_level_order_iterative(self, start_node, visit):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time: O(4n) -> O(n) all nodes must be visited at least once.
+        Memory usage: O(2^(log2(n))) -> O(n) Where h = height of the tree."""
         # Create queue to store nodes not yet traversed in level-order
         queue = LinkedQueue()
         # Enqueue given starting node
@@ -396,12 +432,6 @@ def test_binary_search_tree():
 
 if __name__ == '__main__':
     # test_binary_search_tree()
-    items = ['D', 'B', 'F', 'A', 'C', 'E', 'G']
-    tree = BinarySearchTree(items)
-    print(tree)
-    for item in items:
-        print(item)
-        print(tree.search(item))
-    print(tree.root)
-    print(tree.root.left)
-    print(tree.root.right)
+    items = [4, 2, 6, 1, 3, 5, 7]
+    b = BinarySearchTree(items)
+    b.items_in_order()

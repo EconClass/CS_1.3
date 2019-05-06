@@ -28,7 +28,7 @@ class LinkedStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) linked list prepend method takes constant time"""
         self.list.prepend(item)
 
     def peek(self):
@@ -41,7 +41,7 @@ class LinkedStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(n) searching for item in linked list is linear time."""
         if not self.list.is_empty():
             item = self.list.head.data
             self.list.delete(item)
