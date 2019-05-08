@@ -155,4 +155,7 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/python,visualstudiocode,linux
 
-playground.py
+# Ignore test files
+words
+*.pdf
+*.txt
