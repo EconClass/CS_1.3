@@ -86,16 +86,19 @@ class RouterTrie(object):
         for elem in number:
             # Break if number not in trie
             if elem not in node.children:
-                return number, 0
+                break
+                # return number, 0
             # Move down trie as you read right on number
             node = node.children[elem]
         
         # Return price if it exists
-        if node.price:
+        # return number, node.price
+        if node.price is not None:
             return number, node.price
-        return number, 0
+        else:
+            return number, 0
     
-    def insert(self, number, price):
+    def insert(self, number, new_price):
         '''Inserts a price to a call if there is none or if the new price is
         cheaper than the existing price.'''
         node = self.root
@@ -109,12 +112,10 @@ class RouterTrie(object):
             # Move down trie as you read right on number
             node = node.children[elem]
         
-        # Set price at end of the number if not there...
-        if not node.price:
-            node.price = price
-        # ...or if the new price is smaller
-        elif node.price > price:
-            node.price = price
+        # Set price at end of the number if not there
+        # or if the new price is smaller
+        if node.price is None or new_price < node.price:
+            node.price = new_price
     
 
 if __name__ == "__main__":
@@ -155,14 +156,18 @@ if __name__ == "__main__":
         'phone-numbers-1000.txt',
         'phone-numbers-10000.txt')
     
-    # Parse numbers
+    # Parse phone numbers
     numbers = []
     for p in phone_numbers:
         numbers.extend(text_to_list(p))
+    
+    # Log results
     result = open('results.txt', 'w+')
     for n in numbers:
-        result.write(f'{trie.find_price(n)}\n')
+        res = trie.find_price(n)
+        result.write(f'{res[0]}, {res[1]}\n')
     result.close()
+
     #========================EDWIN'S CODE========================#
     # get memory usage
     usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss

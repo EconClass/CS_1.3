@@ -25,29 +25,25 @@ class SetTest(unittest.TestCase):
 
     def test_contains(self):
         s = Set([1,2,3])
-        assert s.contains(1) is True
-        assert s.contains(2) is True
-        assert s.contains(3) is True
+        # items are in the set
+        test = [1,2,3]
+        for i in test:
+            assert s.contains(i) is True
+        
         # items not in set
-        assert s.contains(0) is False
-        assert s.contains(4) is False
-        assert s.contains('A') is False
+        test = [0,4,'A']
+        for i in test:
+            assert s.contains(i) is False
 
     def test_add(self):
         s = Set()
         assert s.size() == 0
 
-        s.add('A')
-        assert s.size() == 1
-        assert s.contains('A') is True
+        to_add = ['A', 'B', 'C']
 
-        s.add('B')
-        assert s.size() == 2
-        assert s.contains('B') is True
-
-        s.add(1)
-        assert s.size() == 3
-        assert s.contains(1) is True
+        for e in to_add:
+            s.add(e)
+            assert s.contains(e) is True
 
         # Cannot add duplicate elements
         with self.assertRaises(KeyError):

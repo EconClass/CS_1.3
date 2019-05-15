@@ -372,11 +372,10 @@ class BinarySearchTree(object):
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time: O(n) All nodes need to be visited once
+        Memory usage: O(n) Result stack will contain all nodes before visitation"""
         # Traverse post-order without using recursion (stretch challenge)
 
-        # Push root into Stack_One.
         stack = ArrayStack()
         result = ArrayStack()
         stack.push(node)
