@@ -87,12 +87,10 @@ class RouterTrie(object):
             # Break if number not in trie
             if elem not in node.children:
                 break
-                # return number, 0
             # Move down trie as you read right on number
             node = node.children[elem]
         
         # Return price if it exists
-        # return number, node.price
         if node.price is not None:
             return number, node.price
         else:
@@ -119,14 +117,13 @@ class RouterTrie(object):
     
 
 if __name__ == "__main__":
-    import sys
     import time
     import resource
     import platform
     
-    args = sys.argv[1:]
-    
+    # Track routes and associated costs from files
     routes = []
+
     files = ('route-costs-10.txt',
         'route-costs-100.txt',
         'route-costs-600.txt',
@@ -141,14 +138,16 @@ if __name__ == "__main__":
     
     # Start timer
     current = time.perf_counter()
+
+    # Create empty trie
     trie = RouterTrie()
 
     # Populate trie
     for num, cost in routes:
         trie.insert(num, cost)
     
-    # How long did it take to build?
-    print(f'Buildtime: {time.perf_counter() - current}')
+    # Prints seconds it took to create complete trie
+    print(f'Buildtime: { time.perf_counter() - current } seconds')
 
     phone_numbers = ('phone-numbers-3.txt',
         'phone-numbers-10.txt',
@@ -163,11 +162,15 @@ if __name__ == "__main__":
     
     # Log results
     result = open('results.txt', 'w+')
+    current = time.perf_counter()
     for n in numbers:
         res = trie.find_price(n)
         result.write(f'{res[0]}, {res[1]}\n')
+    
+    # Prints seconds it took to look for price of all numbers
+    print(f'Lookup time: {time.perf_counter() - current} seconds')
     result.close()
-
+    
     #========================EDWIN'S CODE========================#
     # get memory usage
     usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
@@ -184,4 +187,5 @@ if __name__ == "__main__":
     # print memory usage
     print("Memory Usage: {} mb.".format(usage))
     #============================================================#
+    
     print(f'Trie Size: {trie.size}')
